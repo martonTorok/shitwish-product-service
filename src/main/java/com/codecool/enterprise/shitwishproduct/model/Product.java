@@ -1,26 +1,29 @@
 package com.codecool.enterprise.shitwishproduct.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import org.hibernate.annotations.DynamicUpdate;
+
+import javax.persistence.*;
 
 @Entity
+@Table
+@DynamicUpdate
 public class Product {
 
     @Id
     @GeneratedValue
     private Long id;
 
+    @Column
     private String userId;
-
+    @Column
     private String name;
-
+    @Column
     private String category;
-
+    @Column
     private String imageUrl;
-
+    @Column
     private String description;
-
+    @Column
     private int price;
 
     public Long getId() {
