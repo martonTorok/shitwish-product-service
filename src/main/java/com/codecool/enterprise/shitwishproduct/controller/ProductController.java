@@ -30,17 +30,19 @@ public class ProductController {
     }
 
 
-    @RequestMapping(value = "/product/{id}", method = RequestMethod.PATCH)
+    @RequestMapping(value = "/product/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Product> updateProduct(
-            @RequestBody String header,
             @PathVariable("id") long id,
-            @RequestBody String newData) {
+            @RequestHeader String header,
+            @RequestBody Product product) {
 
-        Product product = productRepository.getOne(id);
-        
+        String expectedId = productRepository.getOne(id).getUserId();
+        String actualId = "";
+        if (!actualId.equals(expectedId)) {
+            return new ResponseEntity<Product>( HttpStatus.UNAUTHORIZED );
+        }
         productRepository.save(product);
-
-        return new ResponseEntity<Product>(header, HttpStatus.OK);
+        return new ResponseEntity<>( product, HttpStatus.OK );
     }
 
 
