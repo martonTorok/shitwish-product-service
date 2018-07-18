@@ -19,13 +19,6 @@ public class ProductController {
     @Autowired
     Authentication authentication;
 
-    @GetMapping(value = "/products/{id}", produces = "application/json")
-    @ResponseBody
-    public Optional<Product> getProduct(@PathVariable("id") long id) {
-        return productRepository.findById(id);
-    }
-
-
     @RequestMapping(value = "/product", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<Product> addProduct(@RequestHeader String auth, @RequestBody Product product){
 
