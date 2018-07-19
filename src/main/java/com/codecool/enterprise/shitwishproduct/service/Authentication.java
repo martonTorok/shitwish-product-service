@@ -1,7 +1,5 @@
 package com.codecool.enterprise.shitwishproduct.service;
 
-
-
 import org.jose4j.jwa.AlgorithmConstraints;
 import org.jose4j.jwk.HttpsJwks;
 import org.jose4j.jws.AlgorithmIdentifiers;

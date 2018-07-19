@@ -31,6 +31,21 @@ public class ProductController {
         return new ResponseEntity<>(productRepository.findAll(), HttpStatus.OK);
     }
 
+    @DeleteMapping(value = "/product/{id}", produces = "application/json")
+    public ResponseEntity<Product> deleteProduct(@RequestHeader String auth, @PathVariable("id")Long id) {
+
+        String userId = authentication.authorize(auth);
+
+        if (userId == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
+        Product productToDelete = productRepository.getById(id);
+        productRepository.delete(productToDelete);
+        return new ResponseEntity<>(productToDelete, HttpStatus.OK);
+    }
+
+
     @PostMapping(value = "/product", consumes = "application/json")
     public ResponseEntity<Product> addProduct(@RequestHeader String auth, @RequestBody Product product){
 
@@ -55,7 +70,7 @@ public class ProductController {
         String expectedId = productRepository.getOne(id).getUserId();
         String actualId = authentication.authorize(auth);
         if (!actualId.equals(expectedId)) {
-            return new ResponseEntity<Product>( HttpStatus.UNAUTHORIZED );
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
         productRepository.save(product);
         return new ResponseEntity<>( product, HttpStatus.OK );
