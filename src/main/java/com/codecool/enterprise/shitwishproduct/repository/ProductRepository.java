@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.List;
 
+@CrossOrigin
 @RestResource(path = "product")
 public interface ProductRepository extends JpaRepository<Product, Long> {
     @CrossOrigin
