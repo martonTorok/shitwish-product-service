@@ -33,7 +33,7 @@ public class ProductController {
     }
 
     @DeleteMapping(value = "/product/{id}", produces = "application/json")
-    public ResponseEntity<Product> deleteProduct(@RequestHeader String auth, @PathVariable("id")Long id) {
+    public ResponseEntity<Product> deleteProduct(@RequestHeader("Authorization") String auth, @PathVariable("id")Long id) {
 
         String userId = authentication.authorize(auth);
 
@@ -48,7 +48,7 @@ public class ProductController {
 
 
     @PostMapping(value = "/product", consumes = "application/json")
-    public ResponseEntity<Product> addProduct(@RequestHeader String auth, @RequestBody Product product){
+    public ResponseEntity<Product> addProduct(@RequestHeader("Authorization") String auth, @RequestBody Product product){
 
         String userId= authentication.authorize(auth);
 
@@ -65,7 +65,7 @@ public class ProductController {
     @PutMapping(value = "/product/{id}", consumes = "application/json")
     public ResponseEntity<Product> updateProduct(
             @PathVariable("id") long id,
-            @RequestHeader String auth,
+            @RequestHeader("Authorization") String auth,
             @RequestBody Product product) {
 
         String expectedId = productRepository.getOne(id).getUserId();
