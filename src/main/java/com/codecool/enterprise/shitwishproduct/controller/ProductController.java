@@ -26,6 +26,7 @@ public class ProductController {
         return new ResponseEntity<>(productRepository.getById(id), HttpStatus.OK);
     }
 
+    @CrossOrigin
     @GetMapping(value = "/products", produces = "application/json")
     public ResponseEntity<List<Product>> getProducts() {
         return new ResponseEntity<>(productRepository.findAll(), HttpStatus.OK);
