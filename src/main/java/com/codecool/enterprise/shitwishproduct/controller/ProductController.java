@@ -21,19 +21,21 @@ public class ProductController {
     @Autowired
     Authentication authentication;
 
+    @CrossOrigin
     @GetMapping(value = "/product/{id}", produces = "application/json")
     public ResponseEntity<Product> getProduct(@PathVariable("id")Long id) {
         return new ResponseEntity<>(productRepository.getById(id), HttpStatus.OK);
     }
 
+    @CrossOrigin
     @GetMapping(value = "/products", produces = "application/json")
     public ResponseEntity<List<Product>> getProducts() {
         return new ResponseEntity<>(productRepository.findAll(), HttpStatus.OK);
     }
 
+    @CrossOrigin
     @DeleteMapping(value = "/product/{id}", produces = "application/json")
     public ResponseEntity<Product> deleteProduct(@RequestHeader("Authorization") String auth, @PathVariable("id")Long id) {
-
         String userId = authentication.authorize(auth);
 
         if (userId == null) {
@@ -45,7 +47,7 @@ public class ProductController {
         return new ResponseEntity<>(productToDelete, HttpStatus.OK);
     }
 
-
+    @CrossOrigin
     @PostMapping(value = "/product", consumes = "application/json")
     public ResponseEntity<Product> addProduct(@RequestHeader("Authorization") String auth, @RequestBody Product product){
 
@@ -60,7 +62,7 @@ public class ProductController {
 
     }
 
-
+    @CrossOrigin
     @PutMapping(value = "/product/{id}", consumes = "application/json")
     public ResponseEntity<Product> updateProduct(
             @PathVariable("id") long id,
