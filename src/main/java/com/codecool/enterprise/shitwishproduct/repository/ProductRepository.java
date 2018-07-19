@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestResource(path = "product")
 public interface ProductRepository extends JpaRepository<Product, Long> {
-     List<Product> getById(@Param("id") Long id);
+     Product getById(@Param("id") Long id);
 
      @Query(value="SELECT p FROM Product p WHERE name LIKE %:query% ORDER BY id")
      List<Product> findAllByName(@Param("query") String query, Pageable pageable);

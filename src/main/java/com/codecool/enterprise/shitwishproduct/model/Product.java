@@ -1,12 +1,9 @@
 package com.codecool.enterprise.shitwishproduct.model;
 
-import org.hibernate.annotations.DynamicUpdate;
-
 import javax.persistence.*;
 
 @Entity
 @Table
-@DynamicUpdate
 public class Product {
 
     @Id
@@ -25,6 +22,18 @@ public class Product {
     private String description;
     @Column
     private int price;
+
+    public Product() {
+    }
+
+    public Product(String userId, String name, String category, String imageUrl, String description, int price) {
+        this.userId = userId;
+        this.name = name;
+        this.category = category;
+        this.imageUrl = imageUrl;
+        this.description = description;
+        this.price = price;
+    }
 
     public Long getId() {
         return id;

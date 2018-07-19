@@ -27,12 +27,18 @@ public class ShitwishProductApplication {
     @Bean
     public CommandLineRunner init() {
         return (String... args) -> {
-            Product pr1 = new Product();
-            Product pr2 = new Product();
-            Product pr3 = new Product();
+            Product pr1 = new Product("userID", "Cows",
+                    "Animal",
+                    "http://www.dumpaday.com/wp-content/uploads/2018/06/random-pictures-10.jpg",
+                    "Two cows for sale", 50000);
+
+            Product pr2 = new Product("userID2", "Használt Trabant",
+                                        "Car",
+                                        "https://hiros.hu/assets/cache/images/ee/eee013f98663efc5ac83d87b9c7d0808.jpg",
+                                        "kicsit rossz de jó", 20000);
             productRepository.save(pr1);
             productRepository.save(pr2);
-            productRepository.save(pr3);
+
         };
     }
 }

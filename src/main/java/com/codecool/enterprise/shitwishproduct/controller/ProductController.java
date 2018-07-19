@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
-import java.util.Optional;
+import java.util.List;
 
 @RestController
 public class ProductController {
@@ -21,7 +21,17 @@ public class ProductController {
     @Autowired
     Authentication authentication;
 
-    @RequestMapping(value = "/product", method = RequestMethod.POST, consumes = "application/json")
+    @GetMapping(value = "/product/{id}", produces = "application/json")
+    public ResponseEntity<Product> getProduct(@PathVariable("id")Long id) {
+        return new ResponseEntity<>(productRepository.getById(id), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/products", produces = "application/json")
+    public ResponseEntity<List<Product>> getProducts() {
+        return new ResponseEntity<>(productRepository.findAll(), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/product", consumes = "application/json")
     public ResponseEntity<Product> addProduct(@RequestHeader String auth, @RequestBody Product product){
 
         String userId= authentication.authorize(auth);
@@ -36,7 +46,7 @@ public class ProductController {
     }
 
 
-    @RequestMapping(value = "/product/{id}", method = RequestMethod.PUT)
+    @PutMapping(value = "/product/{id}", consumes = "application/json")
     public ResponseEntity<Product> updateProduct(
             @PathVariable("id") long id,
             @RequestHeader String auth,
